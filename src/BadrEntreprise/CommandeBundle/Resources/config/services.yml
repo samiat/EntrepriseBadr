@@ -1,0 +1,4 @@
+services:
+#    badr_entr_commande.example:
+#        class: BadrEntreprise\CommandeBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

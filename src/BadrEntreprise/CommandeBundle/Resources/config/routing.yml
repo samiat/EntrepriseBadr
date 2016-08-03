@@ -1,0 +1,19 @@
+badr_entr_commande:
+    path:     /panier
+    defaults: { _controller: BadrEntrCommandeBundle:Panier:index }
+
+badr_entr_commande_passer:
+    path:     /panier/passer
+    defaults: { _controller: BadrEntrCommandeBundle:Panier:passer }
+
+badr_entr_commande_supprimer:
+    path:     /panier/supprimer/{id}
+    defaults: { _controller: BadrEntrCommandeBundle:Panier:supprimer }
+
+badr_entr_commande_afficher:
+    path:     /panier/afficher/{id}
+    defaults: { _controller: BadrEntrCommandeBundle:Panier:afficher }
+
+badr_entr_commande_afficherAutrePage:
+    path:     /panier/afficherAutrePage/{id}
+    defaults: { _controller: BadrEntrCommandeBundle:Panier:afficherAutrePage }

@@ -1,0 +1,13 @@
+{# Ce template n'hérite de personne,
+   tout comme le template inclus avec {{ include() }}.
+	il contient la liste des articles contenu dans un panier#}
+   
+<ul class="nav nav-pills nav-stacked">
+  {% for article in listArticles %}
+    <li>
+      <a href="{{ path('oc_platform_view', {'id': article.id}) }}">
+        {{ article.title }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>

@@ -1,0 +1,14 @@
+{% extends "BadrEntrepriseBundle::layout.html.twig" %}
+
+{% block body %}
+
+  <h2>Passer votre commande</h2>
+
+  {{ include("BadrEntrepriseBundle:Panier:form.html.twig") }}
+
+  <p>
+    Attention : cette commande sera valider directement
+    validation du formulaire.
+  </p>
+
+{% endblock %}
