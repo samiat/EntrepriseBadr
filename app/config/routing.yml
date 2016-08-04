@@ -1,3 +1,7 @@
+badr_entr_boutique:
+    resource: "@BadrEntrBoutiqueBundle/Resources/config/routing.yml"
+    prefix:   /
+
 badr_entr_commande:
     resource: "@BadrEntrCommandeBundle/Resources/config/routing.yml"
     prefix:   /

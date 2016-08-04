@@ -17,3 +17,7 @@ badr_entr_commande_afficher:
 badr_entr_commande_afficherAutrePage:
     path:     /panier/afficherAutrePage/{id}
     defaults: { _controller: BadrEntrCommandeBundle:Panier:afficherAutrePage }
+
+badr_entr_commande_persisterProduit:
+    path:     /panier/persisterProduit
+    defaults: { _controller: BadrEntrCommandeBundle:Panier:persisterProduit }

@@ -6,19 +6,16 @@ namespace BadrEntreprise\CommandeBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use BadrEntreprise\CommandeBundle\Entity\Produit;
 
 class PanierController extends Controller
 {
-  public function indexAction()
-  {
-    // On fixe en dur une liste ici, bien entendu par la suite
-    // on la récupérera depuis la BDD !
-    $listArticles = array(
-      array('id' => 2, 'title' => 'Pantalon 2'),
-      array('id' => 5, 'title' => 'Chemise 5'),
-      array('id' => 9, 'title' => 'Sac 9')
-    );
 
+
+ public function indexAction()
+  {
+  
+    global $listArticles ; 
     return $this->render('BadrEntrCommandeBundle:Panier:index.html.twig', array(
       // Tout l'intérêt est ici : le contrôleur passe
       // les variables nécessaires au template !
@@ -62,6 +59,37 @@ if ($request->isXmlHttpRequest())
  
 	return $this->redirectToRoute('badr_entr_commande_supprimer', array('id' => $id));
     
+  }
+  
+  // On injecte la requête dans les arguments de la méthode
+  // pour tester cette méthode : http://localhost/SymfonyProjetSamia/web/app_dev.php/panier/persisterProduit
+   public function  persisterProduitAction(Request $request){
+  
+  
+	$produit1 = new Produit();
+	$produit1->setTitre('Pantalon 1');
+	$produit1->setPrix(24);
+	$produit2 = new Produit();
+	$produit2->setTitre('Pantalon 2');
+	$produit2->setPrix(30);
+	global $listArticles;
+	$listArticles = array($produit1, $produit2);
+	 // On récupère l'EntityManager
+    $em = $this->getDoctrine()->getManager();
+
+    // Étape 1 : On « persiste » l'entité
+    $em->persist($produit1);
+	$em->persist($produit2);
+
+    // Étape 2 : On « flush » tout ce qui a été persisté avant
+    $em->flush();
+	
+	return $this->render('BadrEntrCommandeBundle:Panier:index.html.twig', array(
+      // Tout l'intérêt est ici : le contrôleur passe
+      // les variables nécessaires au template !
+      'listArticles' => $listArticles
+    ));
+  
   }
   
 }

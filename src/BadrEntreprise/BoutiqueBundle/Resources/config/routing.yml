@@ -1,0 +1,3 @@
+badr_entr_boutique_homepage:
+    path:     /
+    defaults: { _controller: BadrEntrBoutiqueBundle:Default:index }
