@@ -5,8 +5,11 @@ namespace BadrEntreprise\CommandeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Response; 
 use BadrEntreprise\CommandeBundle\Entity\Produit;
+use BadrEntreprise\CommandeBundle\Repository\ProduitRepository;
+
+
 
 class PanierController extends Controller
 {
@@ -14,9 +17,14 @@ class PanierController extends Controller
 
  public function indexAction()
   {
-  
-    global $listArticles ; 
-    return $this->render('BadrEntrCommandeBundle:Panier:index.html.twig', array(
+$repository = $this
+  ->getDoctrine()
+  ->getManager()
+  ->getRepository('BadrEntrCommandeBundle:Produit')
+;
+
+$listArticles = $repository->findAll();
+return $this->render('BadrEntrCommandeBundle:Panier:index.html.twig', array(
       // Tout l'intérêt est ici : le contrôleur passe
       // les variables nécessaires au template !
       'listArticles' => $listArticles
