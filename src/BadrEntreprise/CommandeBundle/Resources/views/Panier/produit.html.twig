@@ -1,0 +1,11 @@
+<html>
+<body>
+<p>
+    Here's is a photo I took during my last holiday in the mountains:  {{id}}<br />
+    <img src="{{ asset('/images/')}}{{id}}.jpg" alt="t-shirt picture" />
+    <form action = {{ path('badr_entr_commande_afficherPanier', { 'id' : id }) }} method = "post">
+	{{form(form)}}
+	</form>
+</p>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Votre compte a bien été crée</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Email</th>
+                <td>{{ utilisateur.email }}</td>
+            </tr>
+            <tr>
+                <th>Motdepasse</th>
+                <td>{{ utilisateur.motDePasse }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('login') }}">souhaitez vous vous connectez</a>
+        </li>
+    </ul>
+{% endblock %}

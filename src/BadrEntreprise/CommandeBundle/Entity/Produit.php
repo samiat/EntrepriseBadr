@@ -24,16 +24,34 @@ class Produit
     /**
      * @var string
      *
-     * @ORM\Column(name="titre", type="string", length=255, nullable=true)
+     * @ORM\Column(name="couleur", type="string", length=255)
+     */
+    private $couleur;
+
+ /**
+     * @var string
+     *
+     * @ORM\Column(name="titre", type="string", length=255 )
      */
     private $titre;
-
     /**
      * @var string
      *
      * @ORM\Column(name="prix", type="decimal", precision=10, scale=0)
      */
     private $prix;
+	
+	/**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string",length=255 )
+     */
+	
+	private $description;
+	
+	
+	
+	
 
 
     /**
@@ -93,5 +111,53 @@ class Produit
     {
         return $this->prix;
     }
-}
+ /**
+     * Set couleur
+     *
+     * @param string $couleur
+     *
+     * @return Produit
+     */
+    public function setCouleur($couleur)
+    {
+        $this->couleur = $couleur;
 
+        return $this;
+    }
+
+    /**
+     * Get couleur
+     *
+     * @return string
+     */
+    public function getCouleur()
+    {
+        return $this->couleur;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Produit
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+
+}

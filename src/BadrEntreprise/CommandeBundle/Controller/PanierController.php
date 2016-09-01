@@ -8,7 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response; 
 use BadrEntreprise\CommandeBundle\Entity\Produit;
 use BadrEntreprise\CommandeBundle\Repository\ProduitRepository;
-
+use BadrEntreprise\CommandeBundle\Form\ProduitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
 class PanierController extends Controller
@@ -25,52 +26,108 @@ $repository = $this
 
 $listArticles = $repository->findAll();
 return $this->render('BadrEntrCommandeBundle:Panier:index.html.twig', array(
-      // Tout l'intérêt est ici : le contrôleur passe
-      // les variables nécessaires au template !
+      // Tout l'intï¿½rï¿½t est ici : le contrï¿½leur passe
+      // les variables nï¿½cessaires au template !
       'listArticles' => $listArticles
     ));
   }
   
-   // pour tester cette méthode : http://localhost/SymfonyProjetSamia/web/app_dev.php/panier/passer
+   // pour tester cette mï¿½thode : http://localhost/SymfonyProjetSamia/web/app_dev.php/panier/passer
   public function passerAction()
   {
     return new Response("vous avez passer une commande !");
   }
   
-  // pour tester cette méthode : http://localhost/SymfonyProjetSamia/web/app_dev.php/panier/supprimer/1
+  // pour tester cette mï¿½thode : http://localhost/SymfonyProjetSamia/web/app_dev.php/panier/supprimer/1
   public function supprimerAction($id)
   {
     return new Response("vous avez supprimer l'article ".$id ." de votre panier");
   }
   
   
-  // On injecte la requête dans les arguments de la méthode
-  // pour tester cette méthode : http://localhost/SymfonyProjetSamia/web/app_dev.php/panier/afficher/1?tag=soufiane
+  // On injecte la requï¿½te dans les arguments de la mï¿½thode
+  // pour tester cette mï¿½thode : http://localhost/SymfonyProjetSamia/web/app_dev.php/panier/afficher/1?tag=soufiane
    public function afficherAction($id, Request $request)
   {
-  if ($request->isMethod('POST'))
-	{
-	// Un formulaire a été envoyé, on peut le traiter ici
-	}
-if ($request->isXmlHttpRequest())
-	{
-	// C'est une requête AJAX, retournons du JSON, par exemple
-	}
-  // On récupère notre paramètre tag
-    $tag = $request->query->get('tag');
-	return new Response("vous avez afficher l'article ".$id ." depuis votre panier avec le tag : ".$tag);
-  }
   
-  // pour tester cette méthode : http://localhost/SymfonyProjetSamia/web/app_dev.php/panier/afficherAutrePage/1
-   public function afficherAutrePageAction($id)
+ $repository = $this
+  ->getDoctrine()
+  ->getManager()
+  ->getRepository('BadrEntrCommandeBundle:Produit')
+;
+
+$produit = $repository->find($id);
+	
+// On crÃ©e le FormBuilder grÃ¢ce au service form factory
+$form = $this->createForm(ProduitType::class, $produit);
+				
+return $this->render('BadrEntrCommandeBundle:Panier:produit.html.twig',array('id' => $id,'form' => $form->createView()));
+}
+
+ public function seConnecterAction()
   {
+  
+ $repository = $this
+  ->getDoctrine()
+  ->getManager()
+  ->getRepository('BadrEntrCommandeBundle:Utilisateurs')
+;
+
+
+	
+// On crÃ©e le FormBuilder grÃ¢ce au service form factory
+$form = $this->createForm(seConnecterForm::class);
+				
+return $this->render('BadrEntrCommandeBundle:Panier:produit.html.twig',array('id' => $id,'form' => $form->createView()));
+}
+  
+  // pour tester cette mï¿½thode : http://localhost/SymfonyProjetSamia/web/app_dev.php/panier/afficherPanier
+   public function afficherPanierAction ($id, Request $request)
+  {
+  
  
-	return $this->redirectToRoute('badr_entr_commande_supprimer', array('id' => $id));
+	if ($request->getMethod() == 'POST')
+{
+
+ $repository = $this
+  ->getDoctrine()
+  ->getManager()
+  ->getRepository('BadrEntrCommandeBundle:Produit')
+;
+
+$produit = $repository->find($id);
+				
+		
+		$session = $request->getSession();
+	
+		if(!$session->has('listArticlesPanier'))
+			{
+				$listArticlesPanier = array();
+				array_push($listArticlesPanier, $produit);
+				$session->set('listArticlesPanier' , $listArticlesPanier);
+			}
+			else{
+			$listArticlesPanier = $session->get('listArticlesPanier');
+			array_push($listArticlesPanier,$produit);
+			$session->set('listArticlesPanier' , $listArticlesPanier);
+			}
+		
+			
+
+return $this->render('BadrEntrCommandeBundle:Panier:panier.html.twig');
+
+		
+
+}
+else{
+die('ici la');
+}
+
     
   }
   
-  // On injecte la requête dans les arguments de la méthode
-  // pour tester cette méthode : http://localhost/SymfonyProjetSamia/web/app_dev.php/panier/persisterProduit
+  // On injecte la requï¿½te dans les arguments de la mï¿½thode
+  // pour tester cette mï¿½thode : http://localhost/SymfonyProjetSamia/web/app_dev.php/panier/persisterProduit
    public function  persisterProduitAction(Request $request){
   
   
@@ -82,19 +139,19 @@ if ($request->isXmlHttpRequest())
 	$produit2->setPrix(30);
 	global $listArticles;
 	$listArticles = array($produit1, $produit2);
-	 // On récupère l'EntityManager
+	 // On rï¿½cupï¿½re l'EntityManager
     $em = $this->getDoctrine()->getManager();
 
-    // Étape 1 : On « persiste » l'entité
+    // ï¿½tape 1 : On ï¿½ persiste ï¿½ l'entitï¿½
     $em->persist($produit1);
 	$em->persist($produit2);
 
-    // Étape 2 : On « flush » tout ce qui a été persisté avant
+    // ï¿½tape 2 : On ï¿½ flush ï¿½ tout ce qui a ï¿½tï¿½ persistï¿½ avant
     $em->flush();
 	
 	return $this->render('BadrEntrCommandeBundle:Panier:index.html.twig', array(
-      // Tout l'intérêt est ici : le contrôleur passe
-      // les variables nécessaires au template !
+      // Tout l'intï¿½rï¿½t est ici : le contrï¿½leur passe
+      // les variables nï¿½cessaires au template !
       'listArticles' => $listArticles
     ));
   

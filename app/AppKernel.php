@@ -17,6 +17,8 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new BadrEntreprise\CommandeBundle\BadrEntrCommandeBundle(),
             new BadrEntreprise\BoutiqueBundle\BadrEntrBoutiqueBundle(),
+            new BadrEntreprise\UserBundle\BadrEntrepriseUserBundle(),
+			new Symfony\Bundle\AsseticBundle\AsseticBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

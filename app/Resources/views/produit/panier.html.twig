@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Produit Panier list</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Prix</th>
+                <th>Couleur</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+             
+			<tr>
+                <td><a href="{{ path('produit_show', { 'id': produit.id }) }}">{{ produit.id }}</a></td>
+                <td>{{ produit.titre }}</td>
+                <td>{{ produit.prix }}</td>
+               
+                <td>
+				
+                    <ul>
+                        <li>
+                            <a href="{{ path('produit_show', { 'id': produit.id }) }}">show</a>
+                        </li>
+						<li>
+                            <a href="{{ path('produit_delete', { 'id': produit.id }) }}">delete from panier </a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+		 {{prixtotal}}
+		 {{nombrearticle}}
+		
+		</tbody>
+    </table>
+	
+<a href="{{ path('produit_index' )}}">ajouter des produits</a>
+<a href="{{ path('login' )}}">valider la commande</a> 
+<a href="{{ path('logout' )}}">deconnexion</a>
+
+
+{% endblock %}
