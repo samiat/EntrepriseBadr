@@ -15,3 +15,8 @@
 /vendor/
 /web/bundles/
 /composer.phar
+
+#ECLIPSE
+.buildpath
+.project
+.settings/*
