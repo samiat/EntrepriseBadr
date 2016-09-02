@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UtilisateursType extends AbstractType
+class CouleurType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,9 +15,7 @@ class UtilisateursType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('email')
-            ->add('motDePasse')
+            ->add('namecouleur')
         ;
     }
     
@@ -27,7 +25,7 @@ class UtilisateursType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'BadrEntreprise\CommandeBundle\Entity\Utilisateurs'
+            'data_class' => 'BadrEntreprise\CommandeBundle\Entity\Couleur'
         ));
     }
 }

@@ -153,17 +153,12 @@
 {% set produitsinPanier = app.session.get('$produits')%}
 
  <h1>Produit list</h1>
- 
- <a href="{{ path('logout' )}}">deconnexion</a>
-
- 
-	<table>
+ 	<table>
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Titre</th>
                 <th>Prix</th>
-                <th>Couleur</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -173,7 +168,6 @@
                 <td><a href="{{ path('produit_show', { 'id': produit.id }) }}">{{ produit.id }}</a></td>
                 <td>{{ produit.titre }}</td>
                 <td>{{ produit.prix }}</td>
-                <td>{{ produit.couleur }}</td>
                 <td>
                     <ul>
                         
@@ -199,11 +193,11 @@
                             <a href="{{ path('show_panier')}}">afficher panier</a>
                         </li>
     <ul>
-	{%if(isAdmin)%}
+	
         <li>
             <a href="{{ path('produit_new') }}">Create a new entry</a>
         </li>
-		{% endif %}
+		
     </ul>
 	
 {% endblock %}

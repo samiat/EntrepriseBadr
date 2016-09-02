@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  
+ <h1>Gestion du stock</h1>
+ 	<table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Prix</th>
+				<th>Quantite</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+                <td><a href="{{ path('produit_show', { 'id': produit.id }) }}">{{ produit.id }}</a></td>
+                <td>{{ produit.titre }}</td>
+                <td>{{ produit.prix }}</td>
+				<td><input type="number" name="quantite" value= {{ produit.prix }}></td>
+               
+            </tr>
+        {% endfor %}
+	
+
+        </tbody>
+    </table>
+<li>
+                            <a href="{{ path('produit_addquantite')}}">Tout valider</a>
+                        </li>
+    <ul>
+	
+        <li>
+            <a href="{{ path('produit_new') }}">Create a new entry</a>
+        </li>
+		
+    </ul>
+	
+{% endblock %}

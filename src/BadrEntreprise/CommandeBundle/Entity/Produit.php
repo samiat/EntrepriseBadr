@@ -22,11 +22,10 @@ class Produit
     private $id;
 
     /**
-     * @var string
      *
-     * @ORM\Column(name="couleur", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="BadrEntreprise\CommandeBundle\Entity\Couleur", cascade={"persist"})
      */
-    private $couleur;
+    private $couleurs;
 
  /**
      * @var string
@@ -50,10 +49,6 @@ class Produit
 	private $description;
 	
 	
-	
-	
-
-
     /**
      * Get id
      *
@@ -111,30 +106,7 @@ class Produit
     {
         return $this->prix;
     }
- /**
-     * Set couleur
-     *
-     * @param string $couleur
-     *
-     * @return Produit
-     */
-    public function setCouleur($couleur)
-    {
-        $this->couleur = $couleur;
-
-        return $this;
-    }
-
-    /**
-     * Get couleur
-     *
-     * @return string
-     */
-    public function getCouleur()
-    {
-        return $this->couleur;
-    }
-
+ 
     /**
      * Set description
      *
@@ -160,4 +132,45 @@ class Produit
     }
 
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->couleurs = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add couleur
+     *
+     * @param \BadrEntreprise\CommandeBundle\Entity\Couleur $couleur
+     *
+     * @return Produit
+     */
+    public function addCouleur(\BadrEntreprise\CommandeBundle\Entity\Couleur $couleur)
+    {
+        $this->couleurs->add($couleur);
+
+        return $this;
+    }
+
+    /**
+     * Remove couleur
+     *
+     * @param \BadrEntreprise\CommandeBundle\Entity\Couleur $couleur
+     */
+    public function removeCouleur(\BadrEntreprise\CommandeBundle\Entity\Couleur $couleur)
+    {
+        $this->couleurs->removeElement($couleur);
+    }
+
+    /**
+     * Get couleurs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCouleurs()
+    {
+        return $this->couleurs;
+    }
 }

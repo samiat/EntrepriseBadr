@@ -1,29 +1,17 @@
-badr_entreprise_user:
-    resource: "@BadrEntrepriseUserBundle/Resources/config/routing.xml"
-    prefix:   /
-
+badr_entr_commande_couleur:
+    resource: "@BadrEntrCommandeBundle/Controller/CouleurController.php"
+    type:     annotation
+badr_entr_commande_couleur:
+    resource: "@BadrEntrCommandeBundle/Controller/CouleurController.php"
+    type:     annotation
 badr_entr_commande_produit:
     resource: "@BadrEntrCommandeBundle/Controller/ProduitController.php"
     type:     annotation
-
-badr_entr_commande_utilisateurs:
-    resource: "@BadrEntrCommandeBundle/Controller/UtilisateursController.php"
-    type:     annotation
-
 badr_entr_boutique:
     resource: "@BadrEntrBoutiqueBundle/Resources/config/routing.yml"
     prefix:   /
-
 badr_entr_commande:
     resource: "@BadrEntrCommandeBundle/Resources/config/routing.yml"
     prefix:   /
-
-login:
-    path:   /login
-    defaults:  { _controller: BadrEntrepriseUserBundle:Security:login }
-
-login_check:
-    path:   /login_check
-
-logout:
-    path:   /logout
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
