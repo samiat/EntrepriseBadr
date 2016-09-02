@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use BadrEntreprise\CommandeBundle\Entity\Produit;
+use BadrEntreprise\CommandeBundle\Entity\Couleur;
 use BadrEntreprise\CommandeBundle\Form\ProduitType;
 
 /**
@@ -43,7 +44,33 @@ class ProduitController extends Controller
         ));
     }
 
+ /**
+     * Lists all Produit entities.
+     *
+     * @Route("/addquantite", name="produit_addquantite")
+     * @Method("GET")
+     */
+    public function addquantiteAction(Request $request)
+    {
+		
+		$session = $request->getSession();
+		$isAdmin = false;
+		$session->set('isAdmin' , $isAdmin);
+			
+        $em = $this->getDoctrine()->getManager();
+		
+		$session = $request->getSession();
+		$produitsInPanier = $session->get('$produits');
+		$nombrearticle = $session->get('$nombrearticle');
 
+        $produits = $em->getRepository('BadrEntrCommandeBundle:Produit')->findAll();
+
+        return  $this->render('produit/addquantite.html.twig', array(
+            'produits' => $produits,
+			'nombrearticle' => $nombrearticle,
+        ));
+    }
+	
  /**
      * Lists all Produit in Panier.
      *
@@ -76,7 +103,9 @@ class ProduitController extends Controller
     public function newAction(Request $request)
     {
         $produit = new Produit();
-        $form = $this->createForm('BadrEntreprise\CommandeBundle\Form\ProduitType', $produit);
+		$couleur = new Couleur();
+		$produit->getCouleurs()->add($couleur);
+	    $form = $this->createForm('BadrEntreprise\CommandeBundle\Form\ProduitType', $produit );
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -84,7 +113,7 @@ class ProduitController extends Controller
             $em->persist($produit);
             $em->flush();
 
-            return $this->redirectToRoute('produit_show', array('id' => $produit->getId()));
+            return $this->redirectToRoute('produit_addquantite');
         }
 
         return $this->render('produit/new.html.twig', array(

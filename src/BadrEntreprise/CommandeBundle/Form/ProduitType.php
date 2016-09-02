@@ -5,6 +5,10 @@ namespace BadrEntreprise\CommandeBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use BadrEntreprise\CommandeBundle\Entity\Couleur;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class ProduitType extends AbstractType
 {
@@ -14,20 +18,16 @@ class ProduitType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('attending', ChoiceType::class, array(
-        'choices' => array(
-        'Yes' => true,
-        'No' => false,
-        'Maybe' => null,
-    ),
-    'choice_attr' => function($val, $key, $index) {
-        // adds a class like attending_yes, attending_no, etc
-        return ['class' => 'attending_'.strtolower($key)];
-    },
-))
-            ->add('couleur')
+	
+	 $builder->add('couleurs', CollectionType::class, array(
+            'entry_type' => CouleurType::class,
+			'allow_add'  => true,
+			 'by_reference' => false,
+        ))
             ->add('titre')
             ->add('prix')
+			->add('description')
+			
         ;
     }
     

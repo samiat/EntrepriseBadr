@@ -4,7 +4,18 @@
     <h1>Produit creation</h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
+	
+	{{ form_row(form.description) }}
+	{{ form_row(form.titre) }}
+	{{ form_row(form.prix) }}
+	<h3>couleurs</h3>
+    <ul class="couleurs" >
+        {# iterate over each existing couleur and render its only field: namecouleur #}
+        {% for couleur in form.couleurs %}
+            <li>{{ form_row(couleur.namecouleur) }}</li>
+        {% endfor %}
+    </ul>
+        
         <input type="submit" value="Create" />
     {{ form_end(form) }}
 
