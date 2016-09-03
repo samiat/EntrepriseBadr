@@ -48,6 +48,12 @@ class Produit
 	
 	private $description;
 	
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="image", type="string", length=255)
+	 */
+	private $image;
 	
     /**
      * Get id
@@ -172,5 +178,29 @@ class Produit
     public function getCouleurs()
     {
         return $this->couleurs;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     *
+     * @return Produit
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

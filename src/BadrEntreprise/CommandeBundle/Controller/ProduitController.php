@@ -33,7 +33,7 @@ class ProduitController extends Controller
         $em = $this->getDoctrine()->getManager();
 		
 		$session = $request->getSession();
-		$produitsInPanier = $session->get('$produits');
+		$produits = $session->get('$produits');
 		$nombrearticle = $session->get('$nombrearticle');
 
         $produits = $em->getRepository('BadrEntrCommandeBundle:Produit')->findAll();
@@ -180,18 +180,19 @@ class ProduitController extends Controller
 		{
 			$produits = $session->get('$produits');
 			$prixtotal = $session->get('$prixtotal');
-		
-			if($key = array_search($produit, $produits, false)) {
-				unset($produits[$key]);
+			$nombrearticle = $session->get('$nombrearticle');
+			
+			if(array_key_exists($produit->getId(), $produits)) {
+				unset($produits[$produit->getId()]);
 				$prixtotal = $prixtotal - $produit->getPrix();
-				
-				
+				$nombrearticle = $nombrearticle-1;
             }
 			$session->set('$produits' , $produits);
 			$session->set('$prixtotal' , $prixtotal);
+			$session->set('$nombrearticle' , $nombrearticle);
 		}
-
-        return $this->redirectToRoute('produit_index');
+		
+        return $this->redirectToRoute('show_panier');
     }
 
     /**
@@ -223,28 +224,28 @@ class ProduitController extends Controller
        $session = $request->getSession();
 		
 		if(!$session->has('$produits'))
-			{
+		{
 				
 				$prixtotal = $produit->getPrix();
 				$produits = array();
-				$nombrearticle = count($produits);
-				array_push($produits, $produit);
+				$nombrearticle = 1;
+				$produits[$produit->getId()] = $produit;
 				$session->set('$produits' , $produits);
 				$session->set('$prixtotal' , $prixtotal);
 				$session->set('$nombrearticle' , $nombrearticle);
-			}
+		}
 			else
-			{
+		{
 			$produits = $session->get('$produits');
 			$nombrearticle = count($produits);
 			$prixtotal = $session->get('$prixtotal');
-			array_push($produits,$produit);
+			$produits[$produit->getId()] = $produit;
 			$prixtotal = $prixtotal + $produit->getPrix();
 			$session->set('$produits' , $produits);
 			$session->set('$prixtotal' , $prixtotal);
 			$session->set('$nombrearticle' , $nombrearticle);
 			
-			}
+		}
 		
         return $this->redirectToRoute('produit_index');
     }

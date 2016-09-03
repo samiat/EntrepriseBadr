@@ -7,16 +7,7 @@
 
         <div class="row">
 
-            <div class="col-md-3">
-                <p class="lead">VIP CLOTHING</p>
-                <div class="list-group">
-                    <a href="#" class="list-group-item">T-SHIRT</a>
-                    <a href="#" class="list-group-item">PANTALON</a>
-                    <a href="#" class="list-group-item">ACCESSOIRES</a>
-                </div>
-            </div>
-
-            <div class="col-md-9">
+				<!-- Carousel -->
 
                 <div class="row carousel-holder">
 
@@ -53,114 +44,27 @@
 					{% for produit in produits %}
                      <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
+                            <img class="img-responsive" style="max-width:170px;maw-height:170" src="{{ asset(produit.image) }}" alt="">
                             <div class="caption">
-                                <h4 class="pull-right">{{ produit.prix }} €</h4>
-                                <h4><a href="{{ path('produit_show', { 'id': produit.id }) }}">{{ produit.titre }}</a>
-                                </h4>
-                                <p>{{produit.description}} <a href="{{ path('produit_show', { 'id': produit.id }) }}">...</a>.</p>
+                                <h4 class="pull-right">{{ produit.prix }} <span class="glyphicon glyphicon-euro"></span></h4>
+                                <h4><a href="{{ path('produit_show', { 'id': produit.id }) }}">{{ produit.titre }}</a></h4>
+                                <p>{{produit.description}} <a href="{{ path('produit_show', { 'id': produit.id }) }}">...</a></p>
+    							<p class="text-center">
+    								<a class="btn btn-primary" href="{{ path('produit_panier', { 'id': produit.id }) }}">Ajouter au panier</a>
+    							</p>
                             </div>
-                            <div class="ratings">
-                                <a href="{{ path('produit_show', { 'id': produit.id }) }}">15 reviews</a>
-								 <a class="btn btn-primary" href="{{ path('produit_panier', { 'id': produit.id }) }}">ajouter au panier</a>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                </p>
-                            </div>
+                            <br>
                         </div>
                     </div>
 					{% endfor %}
 
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <h4><a href="#">Like this template?</a>
-                        </h4>
-                        <p>If you like this template, then check out <a target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this tutorial</a> on how to build a working review system for your online store!</p>
-                        <a class="btn btn-primary" target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">View Tutorial</a>
-                    </div>
 
                 </div>
-
-            </div>
 
         </div>
 
     </div>
-    <!-- /.container -->
 
-    <div class="container">
-
-        <hr>
-
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
-                </div>
-            </div>
-        </footer>
-
-    </div>
-    <!-- /.container -->
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-{% set isAdmin = app.session.get('isAdmin') %}
 {% set produitsinPanier = app.session.get('$produits')%}
-
- <h1>Produit list</h1>
- 	<table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titre</th>
-                <th>Prix</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for produit in produits %}
-            <tr>
-                <td><a href="{{ path('produit_show', { 'id': produit.id }) }}">{{ produit.id }}</a></td>
-                <td>{{ produit.titre }}</td>
-                <td>{{ produit.prix }}</td>
-                <td>
-                    <ul>
-                        
-						<li>
-                            <a href="{{ path('produit_show', { 'id': produit.id }) }}">show</a>
-                        </li>
-						
-                        <li>
-                            <a href="{{ path('produit_panier', { 'id': produit.id }) }}">ajouter au panier</a>
-                        </li>
-						
-						
-					
-					</ul>
-                </td>
-            </tr>
-        {% endfor %}
-	
-
-        </tbody>
-    </table>
-<li>
-                            <a href="{{ path('show_panier')}}">afficher panier</a>
-                        </li>
-    <ul>
-	
-        <li>
-            <a href="{{ path('produit_new') }}">Create a new entry</a>
-        </li>
-		
-    </ul>
 	
 {% endblock %}
