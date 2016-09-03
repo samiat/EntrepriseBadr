@@ -1,3 +1,6 @@
 badr_entr_commande:
     path:     /produit
     defaults: { _controller: BadrEntrCommandeBundle:Produit:index }
+badr_entr_commande_homepage:
+    path:     /
+    defaults: { _controller: BadrEntrCommandeBundle:Produit:index }
