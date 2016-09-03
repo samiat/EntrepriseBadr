@@ -1,47 +1,62 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Produit Panier list</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titre</th>
-                <th>Prix</th>
-                <th>Couleur</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for produit in produits %}
-             
-			<tr>
-                <td><a href="{{ path('produit_show', { 'id': produit.id }) }}">{{ produit.id }}</a></td>
-                <td>{{ produit.titre }}</td>
-                <td>{{ produit.prix }}</td>
-               
-                <td>
-				
-                    <ul>
-                        <li>
-                            <a href="{{ path('produit_show', { 'id': produit.id }) }}">show</a>
-                        </li>
-						<li>
-                            <a href="{{ path('produit_delete', { 'id': produit.id }) }}">delete from panier </a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-		 {{prixtotal}}
-		 {{nombrearticle}}
-		
-		</tbody>
-    </table>
-	
-<a href="{{ path('produit_index' )}}">ajouter des produits</a>
-<a href="{{ path('login' )}}">valider la commande</a> 
-<a href="{{ path('logout' )}}">deconnexion</a>
 
+<div class="container">
+	<div class="row">
+		<div class="panel panel-default">
+    		<div class="panel-heading">Votre Panier</div>
+    
+    		<div class="panel-body table-responsive">
+    			<!-- Table -->
+    			<table class="table table-condensed table-hover">
+    				<thead>
+    					<tr>
+    						<th>Titre</th>
+    						<th>Quantité</th>
+    						<th>Prix unitaire</th>
+    						<th>Couleur</th>
+    						<th>Actions</th>
+    					</tr>
+    				</thead>
+    				<tbody>
+    					{% for produit in produits %}
+    					<tr>
+    						<td><a href="{{ path('produit_show', { 'id': produit.id }) }}">{{ produit.titre }}</a></td>
+    						<td>Quantite TODO</td>
+    						<td>{{ produit.prix }} <span class="glyphicon glyphicon-euro"></span></td>
+    						<td>Todo couleur</td>
+    						<td><a href="{{ path('produit_delete', { 'id': produit.id }) }}">Retirer du panier</a></td>
+    					</tr>
+    					{% endfor %}
+    				</tbody>
+    				<tfoot>
+    					<tr>
+    						<td></td>
+    						<td></td>
+    						<td></td>
+    						<td></td>
+    						<td>
+    							<h4>
+    								<span class="label label-warning"> Sous-total ({{nombrearticle}} articles) : {{prixtotal}} 
+    									<span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
+    								</span>
+    							</h4>
+    						</td>
+    					</tr>
+    				</tfoot>
+    			</table>
+    		</div>
+    	</div>
+	</div>
+
+	<div class="row">
+		<div class="pull-right">
+    		<a class="btn btn-primary" href="{{ path('produit_index' )}}">Ajouter d'autres produits</a> 
+    		<a class="btn btn-success" href="#">Payer</a>	
+		</div>
+	</div>
+
+</div>
 
 {% endblock %}
