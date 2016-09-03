@@ -19,29 +19,11 @@
 						<td>{{ produit.prix }}</td>
 				</tr>
 				<h3>Description du produit</h3>
-                <p>{{produit.description}}</p>
-				<div>
+                <p>{{produit.description}}</p>	
+                <p>{{ produit.couleur}}</p>
+                <p>{{ produit.quantite }}</p>
+			<div>
 			
-
-			<table>
-				<tbody>
-					
-					<tr>
-						<th>Couleur</th>
-						<td><select name="select">
-							<option value="value1">Valeur 1</option> 
-							<option value="value2" selected>Valeur 2</option>
-							<option value="value3">Valeur 3</option>
-							</select>
-						</td>
-					</tr>
-					
-					<tr>
-						<th>Quantité</th>
-						<td><input type="number" name="quantite"></td>
-					</tr>
-				</tbody>
-			</table>
 			    <ul>
         <li>
             <a href="{{ path('produit_index') }}">Back to the list</a>
@@ -49,6 +31,11 @@
         <li>
             <a href="{{ path('produit_panier', { 'id': produit.id }) }}">ajouter au panier</a>
         </li>
+          {%if is_granted('ROLE_ADMIN') %}
+        <li>
+            <a href="{{ path('produit_edit', { 'id': produit.id }) }}">Edit</a>
+        </li>
+        {% endif %}
     </ul>
 		</div>
             </div>

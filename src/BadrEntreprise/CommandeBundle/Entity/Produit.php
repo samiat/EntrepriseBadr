@@ -21,18 +21,24 @@ class Produit
      */
     private $id;
 
-    /**
-     *
-     * @ORM\ManyToMany(targetEntity="BadrEntreprise\CommandeBundle\Entity\Couleur", cascade={"persist"})
-     */
-    private $couleurs;
-
  /**
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255 )
      */
     private $titre;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="couleur", type="string", length=255 )
+     */
+    private $couleur;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="quantite", type="string", length=255 )
+     */
+    private $quantite;
     /**
      * @var string
      *
@@ -43,7 +49,7 @@ class Produit
 	/**
      * @var string
      *
-     * @ORM\Column(name="description", type="string",length=255 )
+     * @ORM\Column(name="description", type="text" )
      */
 	
 	private $description;
@@ -138,46 +144,54 @@ class Produit
     }
 
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->couleurs = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+   
 
     /**
-     * Add couleur
+     * Set couleur
      *
-     * @param \BadrEntreprise\CommandeBundle\Entity\Couleur $couleur
+     * @param string $couleur
      *
      * @return Produit
      */
-    public function addCouleur(\BadrEntreprise\CommandeBundle\Entity\Couleur $couleur)
+    public function setCouleur($couleur)
     {
-        $this->couleurs->add($couleur);
+        $this->couleur = $couleur;
 
         return $this;
     }
 
     /**
-     * Remove couleur
+     * Get couleur
      *
-     * @param \BadrEntreprise\CommandeBundle\Entity\Couleur $couleur
+     * @return string
      */
-    public function removeCouleur(\BadrEntreprise\CommandeBundle\Entity\Couleur $couleur)
+    public function getCouleur()
     {
-        $this->couleurs->removeElement($couleur);
+        return $this->couleur;
     }
 
     /**
-     * Get couleurs
+     * Set quantite
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param string $quantite
+     *
+     * @return Produit
      */
-    public function getCouleurs()
+    public function setQuantite($quantite)
     {
-        return $this->couleurs;
+        $this->quantite = $quantite;
+
+        return $this;
+    }
+
+    /**
+     * Get quantite
+     *
+     * @return string
+     */
+    public function getQuantite()
+    {
+        return $this->quantite;
     }
 
     /**

@@ -23,9 +23,9 @@
     					{% for produit in produits %}
     					<tr>
     						<td><a href="{{ path('produit_show', { 'id': produit.id }) }}">{{ produit.titre }}</a></td>
-    						<td>Quantite TODO</td>
+    						<td>{{ qteProduitPanier[produit.id] }}</td>
     						<td>{{ produit.prix }} <span class="glyphicon glyphicon-euro"></span></td>
-    						<td>Todo couleur</td>
+    						<td>{{ produit.couleur }}</td>
     						<td><a href="{{ path('produit_delete', { 'id': produit.id }) }}">Retirer du panier</a></td>
     					</tr>
     					{% endfor %}
