@@ -157,9 +157,11 @@
                         </li>
     <ul>
 	
+        {%if is_granted('ROLE_ADMIN') %}
         <li>
             <a href="{{ path('produit_new') }}">Create a new entry</a>
         </li>
+        {% endif %}
 		
     </ul>
 	

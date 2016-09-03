@@ -9,6 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use BadrEntreprise\CommandeBundle\Entity\Produit;
 use BadrEntreprise\CommandeBundle\Entity\Couleur;
 use BadrEntreprise\CommandeBundle\Form\ProduitType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 
 /**
  * Produit controller.
@@ -96,15 +98,17 @@ class ProduitController extends Controller
 
     /**
      * Creates a new Produit entity.
-     *
+     * @Security("has_role('ROLE_ADMIN')")
      * @Route("/new", name="produit_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
     {
+    	$session = $request->getSession();
+    	$produits = $session->get('$produits');
+    	$prixtotal = $session->get('$prixtotal');
+    	$nombrearticle = $session->get('$nombrearticle');
         $produit = new Produit();
-		$couleur = new Couleur();
-		$produit->getCouleurs()->add($couleur);
 	    $form = $this->createForm('BadrEntreprise\CommandeBundle\Form\ProduitType', $produit );
         $form->handleRequest($request);
 
@@ -119,6 +123,7 @@ class ProduitController extends Controller
         return $this->render('produit/new.html.twig', array(
             'produit' => $produit,
             'form' => $form->createView(),
+        	'nombrearticle' => $nombrearticle,
         ));
     }
 
@@ -128,13 +133,20 @@ class ProduitController extends Controller
      * @Route("/{id}", name="produit_show")
      * @Method("GET")
      */
-    public function showAction(Produit $produit)
+    public function showAction(Request $request,Produit $produit)
     {
+    	
+    	$session = $request->getSession();
+    	$produits = $session->get('$produits');
+    	$prixtotal = $session->get('$prixtotal');
+    	$nombrearticle = $session->get('$nombrearticle');
         $deleteForm = $this->createDeleteForm($produit);
 
         return $this->render('produit/show.html.twig', array(
             'produit' => $produit,
             'delete_form' => $deleteForm->createView(),
+        	'nombrearticle' => $nombrearticle,
+        		
         ));
     }
 
@@ -146,6 +158,10 @@ class ProduitController extends Controller
      */
     public function editAction(Request $request, Produit $produit)
     {
+    	$session = $request->getSession();
+    	$produits = $session->get('$produits');
+    	$prixtotal = $session->get('$prixtotal');
+    	$nombrearticle = $session->get('$nombrearticle');
         $deleteForm = $this->createDeleteForm($produit);
         $editForm = $this->createForm('BadrEntreprise\CommandeBundle\Form\ProduitType', $produit);
         $editForm->handleRequest($request);
@@ -162,6 +178,8 @@ class ProduitController extends Controller
             'produit' => $produit,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+        	'nombrearticle' => $nombrearticle,
+        		
         ));
     }
 
@@ -203,7 +221,8 @@ class ProduitController extends Controller
      */
     private function createDeleteForm(Produit $produit)
     {
-        return $this->createFormBuilder()
+    	
+    	return $this->createFormBuilder()
             ->setAction($this->generateUrl('produit_delete', array('id' => $produit->getId())))
             ->setMethod('DELETE')
             ->getForm()
