@@ -47,7 +47,7 @@
                                 <h4><a href="{{ path('produit_show', { 'id': produit.id }) }}">{{ produit.titre }}</a></h4>
                                 <p>{{produit.description}} <a href="{{ path('produit_show', { 'id': produit.id }) }}">...</a></p>
     							<p class="text-center">
-    								<a class="btn btn-primary" href="{{ path('produit_panier', { 'id': produit.id }) }}">Ajouter au panier</a>
+    								<a class="btn btn-primary" href="{{ path('produit_panier', { 'id': produit.id }) }}">Ajouter au panier <span class="glyphicon glyphicon-shopping-cart"></span></a>
     							</p>
                             </div>
                             <br>

@@ -1,75 +1,50 @@
-	{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
 
-    <!-- Page Content -->
-    <div class="container">
+<!-- Page Content -->
+<div class="container">
 
-        <!-- Portfolio Item Row -->
-        <div class="row">
+	<!-- Portfolio Item Row -->
+	<div class="row">
 
-            <div class="col-md-8">
-                <img class="img-responsive" src="http://placehold.it/750x500" alt="">
-            </div>
 
-            <div class="col-md-4">
-                <h1>{{ produit.titre }}</h1>
-				<tr>
-						<th>Prix</th>
-						<td>{{ produit.prix }}</td>
-				</tr>
-				<h3>Description du produit</h3>
-                <p>{{produit.description}}</p>	
-                <p>{{ produit.couleur}}</p>
-                <p>{{ produit.quantite }}</p>
-			<div>
-			
-			    <ul>
-        <li>
-            <a href="{{ path('produit_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('produit_panier', { 'id': produit.id }) }}">ajouter au panier</a>
-        </li>
-          {%if is_granted('ROLE_ADMIN') %}
-        <li>
-            <a href="{{ path('produit_edit', { 'id': produit.id }) }}">Edit</a>
-        </li>
-        {% endif %}
-    </ul>
+		<div class="col-md-5">
+			<img class="img-responsive" src="{{ asset('images/' ~ produit.id ~ '-large.jpg') }}" alt="">
 		</div>
-            </div>
 
-        </div>
-		
-		
+		<div class="col-md-7">
 
-    </div>
-    <!-- /.container -->
-
-    <div class="container">
-
-        <hr>
-
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
-                </div>
-            </div>
-        </footer>
-
-    </div>
-    <!-- /.container -->
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    
-
-
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h1>{{ produit.titre }}</h1>
+				</div>			
+			
+				<div class="panel-body">
+					<h4>
+        				<span class="label label-danger">{{ produit.prix }}<span class="glyphicon glyphicon-euro"></span></span>
+        			</h4>
+        			<h3>Description du produit</h3>
+        			<p>
+        				{{produit.description}}
+        			</p>
+        			<p>
+        				Couleur : <b>{{ produit.couleur}}</b>
+        			</p>
+        			<p>
+        				Quantité disponible : <b>{{ produit.quantite }}</b>
+        			</p>
+        			<div>
+    					<a class="btn btn-primary" href="{{ path('produit_index') }}"><span class="glyphicon glyphicon-menu-left"></span>Retourner à la liste</a>
+    					<a class="btn btn-primary" href="{{ path('produit_panier', { 'id': produit.id }) }}">Ajouter au panier <span class="glyphicon glyphicon-shopping-cart"></span></a>
+    					{%if is_granted('ROLE_ADMIN') %}
+    					<a class="btn btn-primary" href="{{ path('produit_edit', { 'id': produit.id }) }}">Modifier <span class="glyphicon glyphicon-pencil"></span></a>
+    					<a class="btn btn-primary" href="{{ path('produit_delete_base', { 'id': produit.id }) }}">Supprimer <span class="glyphicon glyphicon-trash"></span></a>
+    					{% endif %}
+        			</div>
+				</div>
+			</div>			
+		</div>
+	</div>
+</div>
 {% endblock %}

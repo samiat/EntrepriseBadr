@@ -110,11 +110,17 @@ class ProduitController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+        	$produit->setImage("");
             $em = $this->getDoctrine()->getManager();
             $em->persist($produit);
             $em->flush();
+            
+            //Ajout de l'image
+            $produit->setImage("images/".$produit->getId().".jpg");
+            $em->persist($produit);
+            $em->flush();
 
-            return $this->redirectToRoute('produit_addquantite');
+            return $this->redirectToRoute('produit_index');
         }
 
         return $this->render('produit/new.html.twig', array(
@@ -214,6 +220,20 @@ class ProduitController extends Controller
         return $this->redirectToRoute('show_panier');
     }
 
+    /**
+     * Deletes a Produit entity.
+     *
+     * @Route("/{id}/deleteProduit", name="produit_delete_base")
+     * @Method("GET")
+     */
+    public function deleteProduit(Request $request, Produit $produit){
+    	
+    	$em = $this->getDoctrine()->getManager();
+    	$em->remove($produit);
+    	$em->flush();
+    	return $this->redirectToRoute('produit_index');
+    }
+    
     /**
      * Creates a form to delete a Produit entity.
      *

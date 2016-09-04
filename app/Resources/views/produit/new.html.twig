@@ -1,15 +1,42 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<h1>Produit creation</h1>
 
-{{ form_start(form) }}
-{{ form_widget(form) }}
+<div class="container">
 
-<input type="submit" value="Create" />
-{{ form_end(form) }}
-
-<ul>
-	<li><a href="{{ path('produit_index') }}">Back to the list</a></li>
-</ul>
+    <h1>Ajout d'un nouveau produit</h1>
+    <form class="form-horizontal" action="{{ path('produit_new') }}" method="POST">
+    
+        <div class="form-group">
+          <span class="form-group-addon">Libellé</span>
+          <input type="text" class="form-control" id="produit_titre" name="produit[titre]" placeholder="Libellé" style="max-height : 200px" />
+        </div>
+        
+        <div class="form-group">
+          <span class="form-group-addon">Libellé</span>
+          <textarea  class="form-control" id="foproduit_scription" name="produit[description]" placeholder="Description" style="max-height : 200px"></textarea>
+        </div>
+        
+        <div class="form-group">
+          <span class="form-group-addon">Prix</span>
+          <input type="number" class="form-control" id="produit_prix" name="produit[prix]" placeholder="Prix" style="max-height : 200px" />
+        </div>
+        
+        <div class="form-group">
+          <span class="form-group-addon">Couleur</span>
+          <input type="text" class="form-control" id="produit_couleur" name="produit[couleur]" placeholder="Couleur" style="max-height : 200px" />
+        </div>
+        
+        <div class="form-group">
+          <span class="form-group-addon">Quantité</span>
+          <input type="number" class="form-control" id="produit_quantite" name="produit[quantite]" placeholder="Libellé" style="max-height : 200px" />
+        </div>
+        
+    	<a class="btn btn-primary" href="{{ path('produit_index') }}"><span class="glyphicon glyphicon-menu-left"></span>Retourner à la liste</a>
+    	<button class="btn btn-primary" type="submit">Ajouter <i class="glyphicon glyphicon-plus-sign"></i></button>
+    	
+		{{ form_row(form._token) }}    
+    </form>
+    
+</div>
 {% endblock %}
